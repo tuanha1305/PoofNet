@@ -546,10 +546,10 @@ class RSU4F(nn.Module):
         return hx1d + hxin
 
 
-# ==================== MAIN MODEL: ISNet-Transformer với BBox và Style ====================
-class ISNetTransformerBBox(nn.Module):
+# ==================== MAIN MODEL: PoofNet với BBox và Style ====================
+class PoofNet(nn.Module):
     """
-    ISNet-Transformer with BBox, Tag, and Style conditioning
+    PoofNet with BBox, Tag, and Style conditioning
 
     Architecture:
         - Style Encoder: Encode image style (human/art/graphic)
@@ -560,7 +560,7 @@ class ISNetTransformerBBox(nn.Module):
     """
 
     def __init__(self, in_ch=3, out_ch=1, num_classes=80, num_styles=3):
-        super(ISNetTransformerBBox, self).__init__()
+        super(PoofNet, self).__init__()
 
         # ========== Style Encoder ==========
         self.style_encoder = StyleEncoder(num_styles=num_styles, embed_dim=256)

@@ -8,7 +8,7 @@ import os
 import cv2
 import matplotlib.pyplot as plt
 
-from model import ISNetTransformerBBox
+from model import PoofNet
 
 
 class ObjectRemover:
@@ -44,7 +44,7 @@ class ObjectRemover:
 
         # Load model
         print(f"Loading model from {checkpoint_path}...")
-        self.model = ISNetTransformerBBox(
+        self.model = PoofNet(
             in_ch=3,
             out_ch=1,
             num_classes=num_classes,
