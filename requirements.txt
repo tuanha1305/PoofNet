@@ -1,0 +1,8 @@
+torch~=2.9.0
+numpy~=2.2.6
+tqdm~=4.67.1
+torchvision~=0.24.0
+pillow~=12.0.0
+pycocotools~=2.0.10
+opencv-python~=4.12.0.88
+matplotlib~=3.10.7
