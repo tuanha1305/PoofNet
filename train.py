@@ -8,7 +8,7 @@ import argparse
 from tqdm import tqdm
 import numpy as np
 
-from model import ISNetTransformerBBox
+from model import PoofNet
 from dataset import ObjectRemovalDataset, COCOObjectRemovalDataset, collate_fn
 
 

@@ -759,39 +759,3 @@ class PoofNet(nn.Module):
             targets: (B, 1, H, W) ground truth mask
         """
         return muti_loss_fusion(preds, targets)
-
-
-# ==================== TESTING ====================
-if __name__ == "__main__":
-    # Test model
-    model = ISNetTransformerBBox(in_ch=3, out_ch=1, num_classes=80, num_styles=3)
-
-    # Dummy input
-    batch_size = 2
-    img = torch.randn(batch_size, 3, 512, 512)
-    bboxes = torch.tensor([
-        [[0.2, 0.3, 0.5, 0.7], [0.6, 0.2, 0.9, 0.6], [0.0, 0.0, 0.0, 0.0]],  # 2 objects + 1 padding
-        [[0.1, 0.1, 0.4, 0.5], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0]]  # 1 object + 2 padding
-    ], dtype=torch.float32)
-    classes = torch.tensor([
-        [0, 2, 0],  # person, car, padding
-        [1, 0, 0]  # bicycle, padding, padding
-    ], dtype=torch.long)
-    style_idx = torch.tensor([0, 1], dtype=torch.long)  # human, art
-
-    # Forward pass
-    outputs = model(img, bboxes, classes, style_idx)
-
-    print("Model test successful!")
-    print(f"Number of outputs: {len(outputs)}")
-    print(f"Output shape: {outputs[0].shape}")
-
-    # Test loss
-    gt_mask = torch.randint(0, 2, (batch_size, 1, 512, 512)).float()
-    loss0, loss = model.compute_loss(outputs, gt_mask)
-    print(f"Loss0: {loss0.item():.4f}, Total loss: {loss.item():.4f}")
-
-    # Test style encoder
-    print(f"\nStyle test:")
-    style_features = model.style_encoder(style_idx)
-    print(f"Style features shape: {style_features.shape}")  # Should be (2, 256)
